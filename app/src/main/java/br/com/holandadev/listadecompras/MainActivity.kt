@@ -26,7 +26,10 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val item = ItemModel(
-                name = editText.text.toString()
+                name = editText.text.toString(),
+                onRemove = {
+                    itemsAdapter.removeItem(it)
+                }
             )
             itemsAdapter.addItem(item)
             editText.text.clear()
