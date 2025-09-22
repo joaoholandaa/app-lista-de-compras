@@ -8,8 +8,12 @@ import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.viewModels
 
 class MainActivity : AppCompatActivity() {
+
+    val viewModel: ItemsViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,14 +29,14 @@ class MainActivity : AppCompatActivity() {
                 editText.error = "Preencha um valor"
                 return@setOnClickListener
             }
-            val item = ItemModel(
-                name = editText.text.toString(),
-                onRemove = {
-                    itemsAdapter.removeItem(it)
-                }
-            )
-            itemsAdapter.addItem(item)
+
+            viewModel.addItem(editText.text.toString())
+
             editText.text.clear()
+        }
+
+        viewModel.itemsLiveData.observe(this) {items ->
+            itemsAdapter.updateItems(items)
         }
     }
 }
