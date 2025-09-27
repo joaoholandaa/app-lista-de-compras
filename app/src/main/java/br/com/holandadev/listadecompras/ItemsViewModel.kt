@@ -2,8 +2,9 @@ package br.com.holandadev.listadecompras
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.holandadev.listadecompras.data.ItemsDatabase
 
-class ItemsViewModel: ViewModel() {
+class ItemsViewModel(private val database: ItemsDatabase): ViewModel() {
 
     private var items = mutableListOf<ItemModel>()
 
